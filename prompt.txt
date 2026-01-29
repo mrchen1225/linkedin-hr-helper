@@ -1,0 +1,47 @@
+# Build a stunning SaaS landing page for HR Assistant
+
+HR Assistant is an AI-powered Chrome extension that helps HR professionals and recruiters analyze resumes and screen candidates 10x faster.
+
+## Requirements:
+1. **Hero Section**:
+   - Headline: "Save 90% of Resume Screening Time"
+   - Subheadline: "AI automatically analyzes resumes, evaluates candidate-job match, and provides professional suggestions. Works as a Chrome extension."
+   - CTA: "Get Early Access" button
+   - Background: Clean, professional gradient or solid color
+
+2. **Features Section** (4 cards):
+   - Smart Resume Analysis - AI reads and parses resume content
+   - AI Match Assessment - Evaluates candidate-job fit with scores
+   - 90% Time Savings - Process hundreds of resumes in seconds
+   - Chrome Extension - One-click install, works in browser
+
+3. **How It Works** (3 steps):
+   - Install Extension - Add to Chrome, works on LinkedIn
+   - Set Your Criteria - Define job requirements
+   - Auto Evaluate - AI scores and ranks candidates
+
+4. **Pricing**:
+   - Free: $0/mo - 50 analyses, basic scoring, email support
+   - Pro: $29/mo - Unlimited, advanced AI, detailed reports, priority support
+   - Mark Pro as "Most Popular"
+
+5. **Email Signup**:
+   - Headline: "Ready to Speed Up Your Hiring?"
+   - Subtext: "Join 500+ HR professionals on our waitlist. Get early access and 50% off for 3 months."
+   - Email input + "Get Early Access" button
+
+6. **Footer**: Copyright + Chrome Web Store link
+
+## Design Requirements:
+- Use **Inter** or **Plus Jakarta Sans** font from Google Fonts
+- Color scheme: Professional blue (#0369A1), secondary blue (#0EA5E9), success green (#22C55E)
+- Clean, minimalist, modern SaaS aesthetic
+- Smooth hover animations and transitions
+- Mobile responsive
+- No emojis - use CSS-styled icons or SVG icons
+- Card-based layouts with subtle shadows
+- Generous whitespace and padding
+
+Output a single, complete HTML file with embedded CSS and minimal JavaScript for the form.
+
+Generate the HTML now.

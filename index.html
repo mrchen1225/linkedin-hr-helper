@@ -3,314 +3,366 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HR Assistant - AI Resume Analysis for Recruiters</title>
+    <title>HR Assistant - AI Resume Screening for Recruiters</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         :root {
             --primary: #0369A1;
-            --secondary: #0EA5E9;
-            --cta: #22C55E;
-            --bg: #F0F9FF;
-            --text: #0C4A6E;
-            --text-light: #64748B;
+            --primary-dark: #0284C7;
+            --primary-light: #E0F2FE;
+            --secondary: #0891B2;
+            --accent: #22C55E;
+            --text: #0F172A;
+            --text-secondary: #475569;
+            --text-muted: #94A3B8;
+            --bg: #FFFFFF;
+            --bg-secondary: #F8FAFC;
+            --border: #E2E8F0;
+            --shadow: 0 4px 6px -1px rgba(0,0,0,0.1), 0 2px 4px -2px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 15px -3px rgba(0,0,0,0.1), 0 4px 6px -4px rgba(0,0,0,0.1);
         }
-        body { 
-            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif; 
-            line-height: 1.6; 
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
             color: var(--text);
-            background: white;
+            background: var(--bg);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
         }
-        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 0 32px; }
         
-        /* Header */
-        header { 
-            padding: 20px 0; 
-            border-bottom: 1px solid #E0F2FE;
-            position: sticky;
+        /* Navigation */
+        nav {
+            position: fixed;
             top: 0;
-            background: white;
-            z-index: 100;
+            left: 0;
+            right: 0;
+            background: rgba(255,255,255,0.95);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            padding: 16px 0;
+            border-bottom: 1px solid var(--border);
         }
-        header .container { display: flex; align-items: center; justify-content: space-between; }
-        .logo { font-size: 24px; font-weight: 700; color: var(--primary); }
-        .tagline { font-size: 14px; color: var(--text-light); margin-left: 8px; }
-        nav a { margin-left: 32px; color: var(--text); text-decoration: none; font-weight: 500; transition: color 0.2s; }
-        nav a:hover { color: var(--primary); }
+        nav .container { display: flex; justify-content: space-between; align-items: center; }
+        .logo { font-size: 22px; font-weight: 700; color: var(--primary); letter-spacing: -0.5px; }
+        .nav-links { display: flex; gap: 32px; list-style: none; }
+        .nav-links a { color: var(--text-secondary); text-decoration: none; font-size: 15px; font-weight: 500; transition: color 0.2s; }
+        .nav-links a:hover { color: var(--primary); }
         
-        /* Hero */
-        .hero { 
-            padding: 100px 0; 
-            text-align: center; 
-            background: linear-gradient(180deg, var(--bg) 0%, white 100%);
-        }
-        .hero h1 { 
-            font-size: 52px; 
-            font-weight: 700; 
-            margin-bottom: 24px; 
-            line-height: 1.15; 
-            color: var(--text);
-        }
-        .hero h1 span { color: var(--primary); }
-        .hero p { 
-            font-size: 20px; 
-            color: var(--text-light); 
-            margin-bottom: 40px; 
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-        .cta-button { 
-            display: inline-block; 
-            background: var(--cta); 
-            color: white; 
-            padding: 16px 40px; 
-            border-radius: 8px; 
-            text-decoration: none; 
-            font-weight: 600; 
-            font-size: 16px; 
-            transition: all 0.25s ease;
+        /* Buttons */
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 14px 28px;
+            border-radius: 10px;
+            font-size: 15px;
+            font-weight: 600;
+            text-decoration: none;
             cursor: pointer;
             border: none;
+            transition: all 0.2s ease;
+            font-family: inherit;
         }
-        .cta-button:hover { 
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+        .btn-primary:hover {
             background: #16A34A;
             transform: translateY(-2px);
             box-shadow: 0 8px 20px rgba(34, 197, 94, 0.3);
         }
+        .btn-outline {
+            background: transparent;
+            color: var(--text);
+            border: 2px solid var(--border);
+        }
+        .btn-outline:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+        }
+        
+        /* Hero */
+        .hero {
+            padding: 160px 0 100px;
+            text-align: center;
+            background: linear-gradient(180deg, var(--bg-secondary) 0%, var(--bg) 100%);
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: var(--primary-light);
+            color: var(--primary);
+            padding: 8px 16px;
+            border-radius: 50px;
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 24px;
+        }
+        .hero h1 {
+            font-size: 56px;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 24px;
+            letter-spacing: -1px;
+            color: var(--text);
+        }
+        .hero h1 span {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .hero p {
+            font-size: 20px;
+            color: var(--text-secondary);
+            max-width: 640px;
+            margin: 0 auto 40px;
+        }
+        .hero-cta { display: flex; gap: 16px; justify-content: center; margin-bottom: 60px; }
+        .hero-stats { display: flex; justify-content: center; gap: 48px; }
+        .stat { text-align: center; }
+        .stat-value { font-size: 36px; font-weight: 700; color: var(--text); }
+        .stat-label { font-size: 14px; color: var(--text-muted); margin-top: 4px; }
+        
+        /* Sections */
+        section { padding: 100px 0; }
+        .section-header { text-align: center; margin-bottom: 60px; }
+        .section-header h2 { font-size: 40px; font-weight: 700; margin-bottom: 16px; letter-spacing: -0.5px; }
+        .section-header p { font-size: 18px; color: var(--text-secondary); max-width: 600px; margin: 0 auto; }
         
         /* Features */
-        .features { padding: 80px 0; }
-        .section-title { 
-            text-align: center; 
-            font-size: 36px; 
-            font-weight: 700; 
-            margin-bottom: 16px; 
-            color: var(--text);
+        .features { background: var(--bg-secondary); }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 24px;
         }
-        .section-subtitle { 
-            text-align: center; 
-            color: var(--text-light); 
-            margin-bottom: 48px; 
-            font-size: 18px;
+        .feature-card {
+            background: white;
+            padding: 32px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
         }
-        .feature-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); 
-            gap: 24px; 
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary-light);
         }
-        .feature-card { 
-            background: white; 
-            padding: 32px; 
-            border-radius: 16px; 
-            border: 1px solid #E0F2FE;
-            transition: all 0.25s ease;
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            background: var(--primary-light);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 20px;
+            font-size: 28px;
         }
-        .feature-card:hover { 
-            border-color: var(--secondary);
-            box-shadow: 0 8px 24px rgba(14, 165, 233, 0.12);
-        }
-        .feature-icon { font-size: 40px; margin-bottom: 16px; }
-        .feature-card h3 { 
-            font-size: 20px; 
-            font-weight: 600; 
-            margin-bottom: 12px; 
-            color: var(--text);
-        }
-        .feature-card p { color: var(--text-light); font-size: 15px; }
+        .feature-card h3 { font-size: 18px; font-weight: 600; margin-bottom: 12px; }
+        .feature-card p { font-size: 15px; color: var(--text-secondary); line-height: 1.7; }
         
         /* How It Works */
-        .how-it-works { 
-            padding: 80px 0; 
-            background: var(--bg);
+        .steps-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 32px;
         }
-        .steps { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
-            gap: 32px; 
-            text-align: center; 
-            margin-top: 48px;
-        }
-        .step { 
-            padding: 32px 24px; 
-            background: white; 
-            border-radius: 16px;
+        .step-card {
+            text-align: center;
+            padding: 40px 32px;
             position: relative;
         }
-        .step-num { 
-            width: 48px; 
-            height: 48px; 
-            background: var(--primary); 
-            color: white; 
-            border-radius: 50%; 
-            display: flex; 
-            align-items: center; 
-            justify-content: center; 
-            font-size: 20px; 
-            font-weight: 700; 
-            margin: 0 auto 20px;
+        .step-number {
+            width: 64px;
+            height: 64px;
+            background: var(--primary);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 700;
+            margin: 0 auto 24px;
         }
-        .step h3 { 
-            font-size: 18px; 
-            font-weight: 600; 
-            margin-bottom: 12px; 
-            color: var(--text);
-        }
-        .step p { color: var(--text-light); font-size: 14px; }
+        .step-card h3 { font-size: 20px; font-weight: 600; margin-bottom: 12px; }
+        .step-card p { font-size: 15px; color: var(--text-secondary); }
         
         /* Pricing */
-        .pricing { padding: 80px 0; }
-        .pricing-grid { 
-            display: grid; 
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
-            gap: 24px; 
-            max-width: 650px; 
-            margin: 0 auto; 
+        .pricing { background: var(--bg-secondary); }
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 24px;
+            max-width: 800px;
+            margin: 0 auto;
         }
-        .pricing-card { 
-            background: white; 
-            padding: 40px; 
-            border-radius: 20px; 
-            text-align: center; 
-            border: 2px solid #E0F2FE;
-            transition: all 0.25s ease;
-        }
-        .pricing-card:hover { border-color: var(--secondary); }
-        .pricing-card.popular { 
-            border-color: var(--primary); 
+        .pricing-card {
+            background: white;
+            padding: 48px;
+            border-radius: 24px;
+            border: 2px solid var(--border);
             position: relative;
-            box-shadow: 0 12px 32px rgba(3, 105, 161, 0.12);
+            transition: all 0.3s ease;
         }
-        .popular-badge { 
-            position: absolute; 
-            top: -14px; 
-            left: 50%; 
-            transform: translateX(-50%); 
-            background: var(--primary); 
-            color: white; 
-            padding: 6px 20px; 
-            border-radius: 20px; 
-            font-size: 13px; 
-            font-weight: 600; 
-            white-space: nowrap; 
+        .pricing-card:hover { border-color: var(--primary-light); }
+        .pricing-card.popular {
+            border-color: var(--primary);
+            box-shadow: 0 20px 40px rgba(3, 105, 161, 0.15);
         }
-        .pricing-card h3 { font-size: 24px; font-weight: 700; margin-bottom: 8px; color: var(--text); }
-        .price { font-size: 48px; font-weight: 700; color: var(--primary); margin-bottom: 8px; }
-        .price span { font-size: 16px; color: var(--text-light); font-weight: 400; }
-        .pricing-card ul { list-style: none; margin: 24px 0; text-align: left; }
-        .pricing-card li { 
-            padding: 12px 0; 
-            border-bottom: 1px solid #F0F9FF;
+        .popular-tag {
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--primary);
+            color: white;
+            padding: 8px 24px;
+            border-radius: 50px;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        .pricing-card h3 { font-size: 24px; font-weight: 700; margin-bottom: 8px; }
+        .pricing-card .price { font-size: 48px; font-weight: 700; color: var(--primary); margin-bottom: 8px; }
+        .pricing-card .price span { font-size: 16px; color: var(--text-muted); font-weight: 400; }
+        .pricing-features { list-style: none; margin: 32px 0; }
+        .pricing-features li {
+            padding: 14px 0;
+            border-bottom: 1px solid var(--bg-secondary);
             display: flex;
             align-items: center;
             font-size: 15px;
         }
-        .pricing-card li:before { 
-            content: "✓"; 
-            color: var(--cta); 
-            margin-right: 12px; 
+        .pricing-features li::before {
+            content: "✓";
+            color: var(--accent);
             font-weight: 700;
-            font-size: 16px;
+            margin-right: 12px;
+            font-size: 18px;
         }
-        .pricing-card.popular li:before { color: var(--cta); }
+        .pricing-card.popular .pricing-features li::before { color: var(--accent); }
         
-        /* Email Capture */
-        .email-capture { 
-            padding: 100px 0; 
-            text-align: center; 
-            background: linear-gradient(180deg, var(--bg) 0%, white 100%);
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: white;
+            text-align: center;
+            padding: 100px 0;
         }
-        .email-capture h2 { 
-            font-size: 32px; 
-            font-weight: 700; 
-            margin-bottom: 16px; 
-            color: var(--text);
+        .cta-section h2 { font-size: 40px; font-weight: 700; margin-bottom: 16px; }
+        .cta-section p { font-size: 18px; opacity: 0.9; margin-bottom: 40px; }
+        .cta-form {
+            display: flex;
+            gap: 12px;
+            max-width: 480px;
+            margin: 0 auto;
         }
-        .email-capture p { color: var(--text-light); margin-bottom: 32px; font-size: 18px; }
-        .email-form { 
-            display: flex; 
-            gap: 12px; 
-            max-width: 420px; 
-            margin: 0 auto; 
-            flex-wrap: wrap; 
-            justify-content: center; 
-        }
-        .email-form input { 
-            flex: 1; 
-            min-width: 220px; 
-            padding: 16px 24px; 
-            border: 2px solid #E0F2FE; 
-            border-radius: 10px; 
+        .cta-form input {
+            flex: 1;
+            padding: 18px 24px;
+            border: none;
+            border-radius: 12px;
             font-size: 16px;
             font-family: inherit;
         }
-        .email-form input:focus { outline: none; border-color: var(--primary); }
-        .email-form button { 
-            padding: 16px 32px; 
-            background: var(--primary); 
-            color: white; 
-            border: none; 
-            border-radius: 10px; 
-            font-size: 16px; 
-            font-weight: 600; 
-            cursor: pointer; 
-            transition: all 0.25s ease;
+        .cta-form button {
+            padding: 18px 32px;
+            background: var(--text);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
             font-family: inherit;
         }
-        .email-form button:hover { background: #0284C7; }
+        .cta-form button:hover { background: #000; transform: scale(1.02); }
         
         /* Footer */
-        footer { 
-            padding: 40px 0; 
-            text-align: center; 
-            color: var(--text-light); 
-            font-size: 14px; 
-            border-top: 1px solid #E0F2FE; 
+        footer {
+            padding: 48px 0;
+            text-align: center;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 14px;
         }
         footer a { color: var(--primary); text-decoration: none; }
         
         /* Responsive */
+        @media (max-width: 1024px) {
+            .features-grid { grid-template-columns: repeat(2, 1fr); }
+        }
         @media (max-width: 768px) {
-            .hero { padding: 60px 0; }
-            .hero h1 { font-size: 36px; }
-            .hero p { font-size: 17px; }
-            .section-title { font-size: 28px; }
-            .email-form { flex-direction: column; }
-            .email-form input { min-width: 100%; }
+            .hero h1 { font-size: 40px; }
+            .hero-stats { gap: 24px; }
+            .stat-value { font-size: 28px; }
+            .features-grid { grid-template-columns: 1fr; }
+            .steps-grid { grid-template-columns: 1fr; }
+            .pricing-grid { grid-template-columns: 1fr; }
+            .hero-cta { flex-direction: column; align-items: center; }
+            .cta-form { flex-direction: column; }
+            .nav-links { display: none; }
+            section { padding: 60px 0; }
         }
     </style>
 </head>
 <body>
-    <header>
+    <nav>
         <div class="container">
             <div class="logo">HR Assistant</div>
-            <nav>
-                <a href="#features">Features</a>
-                <a href="#how-it-works">How It Works</a>
-                <a href="#pricing">Pricing</a>
-            </nav>
+            <ul class="nav-links">
+                <li><a href="#features">Features</a></li>
+                <li><a href="#how-it-works">How It Works</a></li>
+                <li><a href="#pricing">Pricing</a></li>
+            </ul>
         </div>
-    </header>
+    </nav>
     
     <section class="hero">
         <div class="container">
-            <h1>Save 90% of Resume<br>Screening <span>Time</span></h1>
+            <div class="hero-badge">✨ AI-Powered Resume Screening</div>
+            <h1>Save 90% of Resume<br><span>Screening Time</span></h1>
             <p>AI automatically analyzes resumes, evaluates candidate-job match, and provides professional suggestions. Works as a Chrome extension.</p>
-            <a href="#signup" class="cta-button">Get Early Access</a>
+            <div class="hero-cta">
+                <a href="#signup" class="btn btn-primary">Get Early Access</a>
+                <a href="#features" class="btn btn-outline">Learn More</a>
+            </div>
+            <div class="hero-stats">
+                <div class="stat">
+                    <div class="stat-value">10x</div>
+                    <div class="stat-label">Faster Screening</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">500+</div>
+                    <div class="stat-label">HR Professionals</div>
+                </div>
+                <div class="stat">
+                    <div class="stat-value">90%</div>
+                    <div class="stat-label">Time Saved</div>
+                </div>
+            </div>
         </div>
     </section>
     
     <section class="features" id="features">
         <div class="container">
-            <h2 class="section-title">Core Features</h2>
-            <p class="section-subtitle">Everything you need to streamline your recruitment workflow</p>
-            <div class="feature-grid">
+            <div class="section-header">
+                <h2>Core Features</h2>
+                <p>Everything you need to streamline your recruitment workflow and find the best candidates faster.</p>
+            </div>
+            <div class="features-grid">
                 <div class="feature-card">
                     <div class="feature-icon">📄</div>
                     <h3>Smart Resume Analysis</h3>
-                    <p>AI automatically reads and parses resume content, extracting skills, experience, and education data.</p>
+                    <p>AI automatically reads and parses resume content, extracting skills, experience, and education data in seconds.</p>
                 </div>
                 <div class="feature-card">
                     <div class="feature-icon">🎯</div>
@@ -331,25 +383,27 @@
         </div>
     </section>
     
-    <section class="how-it-works" id="how-it-works">
+    <section id="how-it-works">
         <div class="container">
-            <h2 class="section-title">How It Works</h2>
-            <p class="section-subtitle">Get started in three simple steps</p>
-            <div class="steps">
-                <div class="step">
-                    <div class="step-num">1</div>
+            <div class="section-header">
+                <h2>How It Works</h2>
+                <p>Get started in three simple steps and transform your hiring process.</p>
+            </div>
+            <div class="steps-grid">
+                <div class="step-card">
+                    <div class="step-number">1</div>
                     <h3>Install Extension</h3>
-                    <p>Add to Chrome in one click. Works on LinkedIn, Indeed, and other job platforms.</p>
+                    <p>Add to Chrome in one click. Works seamlessly on LinkedIn, Indeed, and other job platforms.</p>
                 </div>
-                <div class="step">
-                    <div class="step-num">2</div>
+                <div class="step-card">
+                    <div class="step-number">2</div>
                     <h3>Set Your Criteria</h3>
-                    <p>Define job requirements - skills, experience, education - in the extension popup.</p>
+                    <p>Define job requirements including skills, experience level, and education in the extension popup.</p>
                 </div>
-                <div class="step">
-                    <div class="step-num">3</div>
+                <div class="step-card">
+                    <div class="step-number">3</div>
                     <h3>Auto Evaluate</h3>
-                    <p>Browse candidates on LinkedIn. AI scores and ranks each one automatically.</p>
+                    <p>Browse candidates on LinkedIn. AI scores and ranks each one automatically in real-time.</p>
                 </div>
             </div>
         </div>
@@ -357,39 +411,43 @@
     
     <section class="pricing" id="pricing">
         <div class="container">
-            <h2 class="section-title">Simple Pricing</h2>
-            <p class="section-subtitle">Choose the plan that works for you</p>
+            <div class="section-header">
+                <h2>Simple, Transparent Pricing</h2>
+                <p>Choose the plan that fits your needs. Upgrade or downgrade anytime.</p>
+            </div>
             <div class="pricing-grid">
                 <div class="pricing-card">
                     <h3>Free</h3>
-                    <div class="price">$0<span>/mo</span></div>
-                    <ul>
-                        <li>50 resume analyses/month</li>
+                    <div class="price">$0<span>/month</span></div>
+                    <ul class="pricing-features">
+                        <li>50 resume analyses per month</li>
                         <li>Basic match scoring</li>
                         <li>Email support</li>
                     </ul>
+                    <a href="#signup" class="btn btn-outline" style="width: 100%;">Get Started</a>
                 </div>
                 <div class="pricing-card popular">
-                    <span class="popular-badge">Most Popular</span>
+                    <div class="popular-tag">Most Popular</div>
                     <h3>Pro</h3>
-                    <div class="price">$29<span>/mo</span></div>
-                    <ul>
-                        <li>Unlimited analyses</li>
+                    <div class="price">$29<span>/month</span></div>
+                    <ul class="pricing-features">
+                        <li>Unlimited resume analyses</li>
                         <li>Advanced AI suggestions</li>
                         <li>Detailed candidate reports</li>
-                        <li>Priority support</li>
+                        <li>Priority email support</li>
                     </ul>
+                    <a href="#signup" class="btn btn-primary" style="width: 100%;">Start Free Trial</a>
                 </div>
             </div>
         </div>
     </section>
     
-    <section class="email-capture" id="signup">
+    <section class="cta-section" id="signup">
         <div class="container">
             <h2>Ready to Speed Up Your Hiring?</h2>
             <p>Join 500+ HR professionals on our waitlist. Get early access and 50% off for 3 months.</p>
-            <form class="email-form" action="#" method="POST" onsubmit="alert('Thanks! We will contact you soon.'); return false;">
-                <input type="email" name="email" placeholder="Enter your work email" required>
+            <form class="cta-form" onsubmit="alert('Thanks! We will contact you soon.'); return false;">
+                <input type="email" placeholder="Enter your work email" required>
                 <button type="submit">Get Early Access</button>
             </form>
         </div>
