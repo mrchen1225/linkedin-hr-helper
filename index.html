@@ -3,146 +3,369 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ResumeAI - Smart Resume Screening for HR</title>
+    <title>HR Assistant - AI Resume Analysis for Recruiters</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; }
-        .container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+        :root {
+            --primary: #0369A1;
+            --secondary: #0EA5E9;
+            --cta: #22C55E;
+            --bg: #F0F9FF;
+            --text: #0C4A6E;
+            --text-light: #64748B;
+        }
+        body { 
+            font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif; 
+            line-height: 1.6; 
+            color: var(--text);
+            background: white;
+        }
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 24px; }
         
         /* Header */
-        header { padding: 20px 0; border-bottom: 1px solid #eee; }
-        .logo { font-size: 24px; font-weight: 700; color: #2563eb; }
+        header { 
+            padding: 20px 0; 
+            border-bottom: 1px solid #E0F2FE;
+            position: sticky;
+            top: 0;
+            background: white;
+            z-index: 100;
+        }
+        header .container { display: flex; align-items: center; justify-content: space-between; }
+        .logo { font-size: 24px; font-weight: 700; color: var(--primary); }
+        .tagline { font-size: 14px; color: var(--text-light); margin-left: 8px; }
+        nav a { margin-left: 32px; color: var(--text); text-decoration: none; font-weight: 500; transition: color 0.2s; }
+        nav a:hover { color: var(--primary); }
         
         /* Hero */
-        .hero { padding: 80px 0; text-align: center; }
-        .hero h1 { font-size: 48px; font-weight: 700; margin-bottom: 20px; line-height: 1.2; }
-        .hero p { font-size: 20px; color: #666; margin-bottom: 40px; }
-        .cta-button { display: inline-block; background: #2563eb; color: white; padding: 16px 40px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 18px; transition: 0.3s; }
-        .cta-button:hover { background: #1d4ed8; transform: translateY(-2px); }
+        .hero { 
+            padding: 100px 0; 
+            text-align: center; 
+            background: linear-gradient(180deg, var(--bg) 0%, white 100%);
+        }
+        .hero h1 { 
+            font-size: 52px; 
+            font-weight: 700; 
+            margin-bottom: 24px; 
+            line-height: 1.15; 
+            color: var(--text);
+        }
+        .hero h1 span { color: var(--primary); }
+        .hero p { 
+            font-size: 20px; 
+            color: var(--text-light); 
+            margin-bottom: 40px; 
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .cta-button { 
+            display: inline-block; 
+            background: var(--cta); 
+            color: white; 
+            padding: 16px 40px; 
+            border-radius: 8px; 
+            text-decoration: none; 
+            font-weight: 600; 
+            font-size: 16px; 
+            transition: all 0.25s ease;
+            cursor: pointer;
+            border: none;
+        }
+        .cta-button:hover { 
+            background: #16A34A;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(34, 197, 94, 0.3);
+        }
         
         /* Features */
-        .features { padding: 60px 0; background: #f8fafc; }
-        .features h2 { text-align: center; font-size: 32px; margin-bottom: 40px; }
-        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
-        .feature-card { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
-        .feature-card h3 { font-size: 20px; margin-bottom: 12px; color: #1e293b; }
-        .feature-card p { color: #64748b; }
+        .features { padding: 80px 0; }
+        .section-title { 
+            text-align: center; 
+            font-size: 36px; 
+            font-weight: 700; 
+            margin-bottom: 16px; 
+            color: var(--text);
+        }
+        .section-subtitle { 
+            text-align: center; 
+            color: var(--text-light); 
+            margin-bottom: 48px; 
+            font-size: 18px;
+        }
+        .feature-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); 
+            gap: 24px; 
+        }
+        .feature-card { 
+            background: white; 
+            padding: 32px; 
+            border-radius: 16px; 
+            border: 1px solid #E0F2FE;
+            transition: all 0.25s ease;
+        }
+        .feature-card:hover { 
+            border-color: var(--secondary);
+            box-shadow: 0 8px 24px rgba(14, 165, 233, 0.12);
+        }
+        .feature-icon { font-size: 40px; margin-bottom: 16px; }
+        .feature-card h3 { 
+            font-size: 20px; 
+            font-weight: 600; 
+            margin-bottom: 12px; 
+            color: var(--text);
+        }
+        .feature-card p { color: var(--text-light); font-size: 15px; }
         
         /* How It Works */
-        .how-it-works { padding: 60px 0; }
-        .how-it-works h2 { text-align: center; font-size: 32px; margin-bottom: 40px; }
-        .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; text-align: center; }
-        .step { padding: 20px; }
-        .step-num { width: 50px; height: 50px; background: #2563eb; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 700; margin: 0 auto 16px; }
-        .step h3 { font-size: 18px; margin-bottom: 8px; }
-        .step p { color: #64748b; font-size: 14px; }
+        .how-it-works { 
+            padding: 80px 0; 
+            background: var(--bg);
+        }
+        .steps { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); 
+            gap: 32px; 
+            text-align: center; 
+            margin-top: 48px;
+        }
+        .step { 
+            padding: 32px 24px; 
+            background: white; 
+            border-radius: 16px;
+            position: relative;
+        }
+        .step-num { 
+            width: 48px; 
+            height: 48px; 
+            background: var(--primary); 
+            color: white; 
+            border-radius: 50%; 
+            display: flex; 
+            align-items: center; 
+            justify-content: center; 
+            font-size: 20px; 
+            font-weight: 700; 
+            margin: 0 auto 20px;
+        }
+        .step h3 { 
+            font-size: 18px; 
+            font-weight: 600; 
+            margin-bottom: 12px; 
+            color: var(--text);
+        }
+        .step p { color: var(--text-light); font-size: 14px; }
         
         /* Pricing */
-        .pricing { padding: 60px 0; background: #f8fafc; }
-        .pricing h2 { text-align: center; font-size: 32px; margin-bottom: 40px; }
-        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; max-width: 700px; margin: 0 auto; }
-        .pricing-card { background: white; padding: 40px; border-radius: 16px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
-        .pricing-card.popular { border: 2px solid #2563eb; position: relative; }
-        .popular-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: #2563eb; color: white; padding: 4px 16px; border-radius: 20px; font-size: 12px; font-weight: 600; white-space: nowrap; }
-        .pricing-card h3 { font-size: 24px; margin-bottom: 8px; }
-        .price { font-size: 48px; font-weight: 700; color: #2563eb; margin-bottom: 8px; }
-        .price span { font-size: 16px; color: #64748b; font-weight: 400; }
-        .pricing-card ul { list-style: none; margin: 20px 0; text-align: left; }
-        .pricing-card li { padding: 8px 0; border-bottom: 1px solid #f1f5f9; }
-        .pricing-card li:before { content: "✓"; color: #22c55e; margin-right: 8px; }
+        .pricing { padding: 80px 0; }
+        .pricing-grid { 
+            display: grid; 
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+            gap: 24px; 
+            max-width: 650px; 
+            margin: 0 auto; 
+        }
+        .pricing-card { 
+            background: white; 
+            padding: 40px; 
+            border-radius: 20px; 
+            text-align: center; 
+            border: 2px solid #E0F2FE;
+            transition: all 0.25s ease;
+        }
+        .pricing-card:hover { border-color: var(--secondary); }
+        .pricing-card.popular { 
+            border-color: var(--primary); 
+            position: relative;
+            box-shadow: 0 12px 32px rgba(3, 105, 161, 0.12);
+        }
+        .popular-badge { 
+            position: absolute; 
+            top: -14px; 
+            left: 50%; 
+            transform: translateX(-50%); 
+            background: var(--primary); 
+            color: white; 
+            padding: 6px 20px; 
+            border-radius: 20px; 
+            font-size: 13px; 
+            font-weight: 600; 
+            white-space: nowrap; 
+        }
+        .pricing-card h3 { font-size: 24px; font-weight: 700; margin-bottom: 8px; color: var(--text); }
+        .price { font-size: 48px; font-weight: 700; color: var(--primary); margin-bottom: 8px; }
+        .price span { font-size: 16px; color: var(--text-light); font-weight: 400; }
+        .pricing-card ul { list-style: none; margin: 24px 0; text-align: left; }
+        .pricing-card li { 
+            padding: 12px 0; 
+            border-bottom: 1px solid #F0F9FF;
+            display: flex;
+            align-items: center;
+            font-size: 15px;
+        }
+        .pricing-card li:before { 
+            content: "✓"; 
+            color: var(--cta); 
+            margin-right: 12px; 
+            font-weight: 700;
+            font-size: 16px;
+        }
+        .pricing-card.popular li:before { color: var(--cta); }
         
         /* Email Capture */
-        .email-capture { padding: 80px 0; text-align: center; }
-        .email-capture h2 { font-size: 28px; margin-bottom: 16px; }
-        .email-capture p { color: #64748b; margin-bottom: 24px; }
-        .email-form { display: flex; gap: 12px; max-width: 400px; margin: 0 auto; flex-wrap: wrap; justify-content: center; }
-        .email-form input { flex: 1; min-width: 200px; padding: 14px 20px; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 16px; }
-        .email-form button { padding: 14px 32px; background: #2563eb; color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; transition: 0.3s; }
-        .email-form button:hover { background: #1d4ed8; }
+        .email-capture { 
+            padding: 100px 0; 
+            text-align: center; 
+            background: linear-gradient(180deg, var(--bg) 0%, white 100%);
+        }
+        .email-capture h2 { 
+            font-size: 32px; 
+            font-weight: 700; 
+            margin-bottom: 16px; 
+            color: var(--text);
+        }
+        .email-capture p { color: var(--text-light); margin-bottom: 32px; font-size: 18px; }
+        .email-form { 
+            display: flex; 
+            gap: 12px; 
+            max-width: 420px; 
+            margin: 0 auto; 
+            flex-wrap: wrap; 
+            justify-content: center; 
+        }
+        .email-form input { 
+            flex: 1; 
+            min-width: 220px; 
+            padding: 16px 24px; 
+            border: 2px solid #E0F2FE; 
+            border-radius: 10px; 
+            font-size: 16px;
+            font-family: inherit;
+        }
+        .email-form input:focus { outline: none; border-color: var(--primary); }
+        .email-form button { 
+            padding: 16px 32px; 
+            background: var(--primary); 
+            color: white; 
+            border: none; 
+            border-radius: 10px; 
+            font-size: 16px; 
+            font-weight: 600; 
+            cursor: pointer; 
+            transition: all 0.25s ease;
+            font-family: inherit;
+        }
+        .email-form button:hover { background: #0284C7; }
         
         /* Footer */
-        footer { padding: 40px 0; text-align: center; color: #64748b; font-size: 14px; border-top: 1px solid #eee; }
+        footer { 
+            padding: 40px 0; 
+            text-align: center; 
+            color: var(--text-light); 
+            font-size: 14px; 
+            border-top: 1px solid #E0F2FE; 
+        }
+        footer a { color: var(--primary); text-decoration: none; }
         
         /* Responsive */
-        @media (max-width: 600px) {
-            .hero h1 { font-size: 32px; }
-            .hero p { font-size: 16px; }
+        @media (max-width: 768px) {
+            .hero { padding: 60px 0; }
+            .hero h1 { font-size: 36px; }
+            .hero p { font-size: 17px; }
+            .section-title { font-size: 28px; }
             .email-form { flex-direction: column; }
+            .email-form input { min-width: 100%; }
         }
     </style>
 </head>
 <body>
     <header>
         <div class="container">
-            <div class="logo">ResumeAI</div>
+            <div class="logo">HR Assistant</div>
+            <nav>
+                <a href="#features">Features</a>
+                <a href="#how-it-works">How It Works</a>
+                <a href="#pricing">Pricing</a>
+            </nav>
         </div>
     </header>
     
     <section class="hero">
         <div class="container">
-            <h1>Screen Resumes 10x Faster<br>With <span style="color:#2563eb">AI</span></h1>
-            <p>Upload resumes, define your requirements, and let AI find the best candidates in seconds. No more manual review.</p>
+            <h1>Save 90% of Resume<br>Screening <span>Time</span></h1>
+            <p>AI automatically analyzes resumes, evaluates candidate-job match, and provides professional suggestions. Works as a Chrome extension.</p>
             <a href="#signup" class="cta-button">Get Early Access</a>
         </div>
     </section>
     
-    <section class="features">
+    <section class="features" id="features">
         <div class="container">
-            <h2>Why HR Teams Love ResumeAI</h2>
+            <h2 class="section-title">Core Features</h2>
+            <p class="section-subtitle">Everything you need to streamline your recruitment workflow</p>
             <div class="feature-grid">
                 <div class="feature-card">
-                    <h3>⚡ Instant Screening</h3>
-                    <p>Process 100+ resumes in 5 seconds. AI scores each candidate against your job requirements automatically.</p>
+                    <div class="feature-icon">📄</div>
+                    <h3>Smart Resume Analysis</h3>
+                    <p>AI automatically reads and parses resume content, extracting skills, experience, and education data.</p>
                 </div>
                 <div class="feature-card">
-                    <h3>🎯 Smart Matching</h3>
-                    <p>AI understands job descriptions and finds candidates with the right skills, experience, and culture fit.</p>
+                    <div class="feature-icon">🎯</div>
+                    <h3>AI Match Assessment</h3>
+                    <p>Evaluates candidate-job fit with detailed match scores and professional hiring suggestions.</p>
                 </div>
                 <div class="feature-card">
-                    <h3>🔒 Privacy First</h3>
-                    <p>All processing happens locally. Resumes never leave your browser. Compliant with GDPR & CCPA.</p>
+                    <div class="feature-icon">⚡</div>
+                    <h3>90% Time Savings</h3>
+                    <p>Skip manual review. Process hundreds of resumes in seconds and focus on top candidates.</p>
                 </div>
                 <div class="feature-card">
-                    <h3>📊 Detailed Reports</h3>
-                    <p>Export screening results to share with your hiring team. Track metrics over time.</p>
+                    <div class="feature-icon">🔌</div>
+                    <h3>Chrome Extension</h3>
+                    <p>One-click install, works directly in your browser. No complex setup required.</p>
                 </div>
             </div>
         </div>
     </section>
     
-    <section class="how-it-works">
+    <section class="how-it-works" id="how-it-works">
         <div class="container">
-            <h2>How It Works</h2>
+            <h2 class="section-title">How It Works</h2>
+            <p class="section-subtitle">Get started in three simple steps</p>
             <div class="steps">
                 <div class="step">
                     <div class="step-num">1</div>
-                    <h3>Upload Resumes</h3>
-                    <p>Drag & drop PDF, Word, or text files</p>
+                    <h3>Install Extension</h3>
+                    <p>Add to Chrome in one click. Works on LinkedIn, Indeed, and other job platforms.</p>
                 </div>
                 <div class="step">
                     <div class="step-num">2</div>
-                    <h3>Set Requirements</h3>
-                    <p>Paste job description or select criteria</p>
+                    <h3>Set Your Criteria</h3>
+                    <p>Define job requirements - skills, experience, education - in the extension popup.</p>
                 </div>
                 <div class="step">
                     <div class="step-num">3</div>
-                    <h3>Get Results</h3>
-                    <p>View ranked candidates with match scores</p>
+                    <h3>Auto Evaluate</h3>
+                    <p>Browse candidates on LinkedIn. AI scores and ranks each one automatically.</p>
                 </div>
             </div>
         </div>
     </section>
     
-    <section class="pricing">
+    <section class="pricing" id="pricing">
         <div class="container">
-            <h2>Simple, Transparent Pricing</h2>
+            <h2 class="section-title">Simple Pricing</h2>
+            <p class="section-subtitle">Choose the plan that works for you</p>
             <div class="pricing-grid">
                 <div class="pricing-card">
                     <h3>Free</h3>
                     <div class="price">$0<span>/mo</span></div>
                     <ul>
-                        <li>20 resume screenings/month</li>
-                        <li>Basic matching</li>
+                        <li>50 resume analyses/month</li>
+                        <li>Basic match scoring</li>
                         <li>Email support</li>
                     </ul>
                 </div>
@@ -151,9 +374,9 @@
                     <h3>Pro</h3>
                     <div class="price">$29<span>/mo</span></div>
                     <ul>
-                        <li>Unlimited screenings</li>
-                        <li>Advanced AI matching</li>
-                        <li>Export reports</li>
+                        <li>Unlimited analyses</li>
+                        <li>Advanced AI suggestions</li>
+                        <li>Detailed candidate reports</li>
                         <li>Priority support</li>
                     </ul>
                 </div>
@@ -174,7 +397,7 @@
     
     <footer>
         <div class="container">
-            <p>&copy; 2025 ResumeAI. All rights reserved. | Privacy Policy | Terms of Service</p>
+            <p>&copy; 2025 HR Assistant. AI-Powered Recruitment Tool. | <a href="#">Chrome Web Store</a></p>
         </div>
     </footer>
 </body>
