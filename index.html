@@ -43,7 +43,7 @@
         .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; max-width: 700px; margin: 0 auto; }
         .pricing-card { background: white; padding: 40px; border-radius: 16px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
         .pricing-card.popular { border: 2px solid #2563eb; position: relative; }
-        .popular-badge { top: -12 position: absolute;px; left: 50%; transform: translateX(-50%); background: #2563eb; color: white; padding: 4px 16px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+        .popular-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: #2563eb; color: white; padding: 4px 16px; border-radius: 20px; font-size: 12px; font-weight: 600; white-space: nowrap; }
         .pricing-card h3 { font-size: 24px; margin-bottom: 8px; }
         .price { font-size: 48px; font-weight: 700; color: #2563eb; margin-bottom: 8px; }
         .price span { font-size: 16px; color: #64748b; font-weight: 400; }
@@ -80,7 +80,7 @@
     
     <section class="hero">
         <div class="container">
-            <h1>Screen Resumes 10x Faster<br>With AI</h1>
+            <h1>Screen Resumes 10x Faster<br>With <span style="color:#2563eb">AI</span></h1>
             <p>Upload resumes, define your requirements, and let AI find the best candidates in seconds. No more manual review.</p>
             <a href="#signup" class="cta-button">Get Early Access</a>
         </div>
@@ -165,7 +165,7 @@
         <div class="container">
             <h2>Ready to Speed Up Your Hiring?</h2>
             <p>Join 500+ HR professionals on our waitlist. Get early access and 50% off for 3 months.</p>
-            <form class="email-form" action="https://formspree.io/f/your-form-id" method="POST">
+            <form class="email-form" action="#" method="POST" onsubmit="alert('Thanks! We will contact you soon.'); return false;">
                 <input type="email" name="email" placeholder="Enter your work email" required>
                 <button type="submit">Get Early Access</button>
             </form>
