@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ResumeAI - Smart Resume Screening for HR</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; line-height: 1.6; color: #333; }
+        .container { max-width: 900px; margin: 0 auto; padding: 0 20px; }
+        
+        /* Header */
+        header { padding: 20px 0; border-bottom: 1px solid #eee; }
+        .logo { font-size: 24px; font-weight: 700; color: #2563eb; }
+        
+        /* Hero */
+        .hero { padding: 80px 0; text-align: center; }
+        .hero h1 { font-size: 48px; font-weight: 700; margin-bottom: 20px; line-height: 1.2; }
+        .hero p { font-size: 20px; color: #666; margin-bottom: 40px; }
+        .cta-button { display: inline-block; background: #2563eb; color: white; padding: 16px 40px; border-radius: 8px; text-decoration: none; font-weight: 600; font-size: 18px; transition: 0.3s; }
+        .cta-button:hover { background: #1d4ed8; transform: translateY(-2px); }
+        
+        /* Features */
+        .features { padding: 60px 0; background: #f8fafc; }
+        .features h2 { text-align: center; font-size: 32px; margin-bottom: 40px; }
+        .feature-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 30px; }
+        .feature-card { background: white; padding: 30px; border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.08); }
+        .feature-card h3 { font-size: 20px; margin-bottom: 12px; color: #1e293b; }
+        .feature-card p { color: #64748b; }
+        
+        /* How It Works */
+        .how-it-works { padding: 60px 0; }
+        .how-it-works h2 { text-align: center; font-size: 32px; margin-bottom: 40px; }
+        .steps { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 30px; text-align: center; }
+        .step { padding: 20px; }
+        .step-num { width: 50px; height: 50px; background: #2563eb; color: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 24px; font-weight: 700; margin: 0 auto 16px; }
+        .step h3 { font-size: 18px; margin-bottom: 8px; }
+        .step p { color: #64748b; font-size: 14px; }
+        
+        /* Pricing */
+        .pricing { padding: 60px 0; background: #f8fafc; }
+        .pricing h2 { text-align: center; font-size: 32px; margin-bottom: 40px; }
+        .pricing-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 30px; max-width: 700px; margin: 0 auto; }
+        .pricing-card { background: white; padding: 40px; border-radius: 16px; text-align: center; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+        .pricing-card.popular { border: 2px solid #2563eb; position: relative; }
+        .popular-badge { top: -12 position: absolute;px; left: 50%; transform: translateX(-50%); background: #2563eb; color: white; padding: 4px 16px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+        .pricing-card h3 { font-size: 24px; margin-bottom: 8px; }
+        .price { font-size: 48px; font-weight: 700; color: #2563eb; margin-bottom: 8px; }
+        .price span { font-size: 16px; color: #64748b; font-weight: 400; }
+        .pricing-card ul { list-style: none; margin: 20px 0; text-align: left; }
+        .pricing-card li { padding: 8px 0; border-bottom: 1px solid #f1f5f9; }
+        .pricing-card li:before { content: "✓"; color: #22c55e; margin-right: 8px; }
+        
+        /* Email Capture */
+        .email-capture { padding: 80px 0; text-align: center; }
+        .email-capture h2 { font-size: 28px; margin-bottom: 16px; }
+        .email-capture p { color: #64748b; margin-bottom: 24px; }
+        .email-form { display: flex; gap: 12px; max-width: 400px; margin: 0 auto; flex-wrap: wrap; justify-content: center; }
+        .email-form input { flex: 1; min-width: 200px; padding: 14px 20px; border: 2px solid #e2e8f0; border-radius: 8px; font-size: 16px; }
+        .email-form button { padding: 14px 32px; background: #2563eb; color: white; border: none; border-radius: 8px; font-size: 16px; font-weight: 600; cursor: pointer; transition: 0.3s; }
+        .email-form button:hover { background: #1d4ed8; }
+        
+        /* Footer */
+        footer { padding: 40px 0; text-align: center; color: #64748b; font-size: 14px; border-top: 1px solid #eee; }
+        
+        /* Responsive */
+        @media (max-width: 600px) {
+            .hero h1 { font-size: 32px; }
+            .hero p { font-size: 16px; }
+            .email-form { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="logo">ResumeAI</div>
+        </div>
+    </header>
+    
+    <section class="hero">
+        <div class="container">
+            <h1>Screen Resumes 10x Faster<br>With AI</h1>
+            <p>Upload resumes, define your requirements, and let AI find the best candidates in seconds. No more manual review.</p>
+            <a href="#signup" class="cta-button">Get Early Access</a>
+        </div>
+    </section>
+    
+    <section class="features">
+        <div class="container">
+            <h2>Why HR Teams Love ResumeAI</h2>
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h3>⚡ Instant Screening</h3>
+                    <p>Process 100+ resumes in 5 seconds. AI scores each candidate against your job requirements automatically.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🎯 Smart Matching</h3>
+                    <p>AI understands job descriptions and finds candidates with the right skills, experience, and culture fit.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>🔒 Privacy First</h3>
+                    <p>All processing happens locally. Resumes never leave your browser. Compliant with GDPR & CCPA.</p>
+                </div>
+                <div class="feature-card">
+                    <h3>📊 Detailed Reports</h3>
+                    <p>Export screening results to share with your hiring team. Track metrics over time.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="how-it-works">
+        <div class="container">
+            <h2>How It Works</h2>
+            <div class="steps">
+                <div class="step">
+                    <div class="step-num">1</div>
+                    <h3>Upload Resumes</h3>
+                    <p>Drag & drop PDF, Word, or text files</p>
+                </div>
+                <div class="step">
+                    <div class="step-num">2</div>
+                    <h3>Set Requirements</h3>
+                    <p>Paste job description or select criteria</p>
+                </div>
+                <div class="step">
+                    <div class="step-num">3</div>
+                    <h3>Get Results</h3>
+                    <p>View ranked candidates with match scores</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="pricing">
+        <div class="container">
+            <h2>Simple, Transparent Pricing</h2>
+            <div class="pricing-grid">
+                <div class="pricing-card">
+                    <h3>Free</h3>
+                    <div class="price">$0<span>/mo</span></div>
+                    <ul>
+                        <li>20 resume screenings/month</li>
+                        <li>Basic matching</li>
+                        <li>Email support</li>
+                    </ul>
+                </div>
+                <div class="pricing-card popular">
+                    <span class="popular-badge">Most Popular</span>
+                    <h3>Pro</h3>
+                    <div class="price">$29<span>/mo</span></div>
+                    <ul>
+                        <li>Unlimited screenings</li>
+                        <li>Advanced AI matching</li>
+                        <li>Export reports</li>
+                        <li>Priority support</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <section class="email-capture" id="signup">
+        <div class="container">
+            <h2>Ready to Speed Up Your Hiring?</h2>
+            <p>Join 500+ HR professionals on our waitlist. Get early access and 50% off for 3 months.</p>
+            <form class="email-form" action="https://formspree.io/f/your-form-id" method="POST">
+                <input type="email" name="email" placeholder="Enter your work email" required>
+                <button type="submit">Get Early Access</button>
+            </form>
+        </div>
+    </section>
+    
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 ResumeAI. All rights reserved. | Privacy Policy | Terms of Service</p>
+        </div>
+    </footer>
+</body>
+</html>
